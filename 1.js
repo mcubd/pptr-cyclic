@@ -19,7 +19,7 @@ ioo.on("connection", (socket) => {
 
   socket.on('sendMessage', name => {
     // ioo.sockets.emit('broadcas',{ data:name.data,d:'yes'})
-    // socket.emit('broadcas2',{ data:name.data, d:'no'})
+    socket.emit('broadcas2',"ok")
 
     socket.broadcast.emit('broadcas3', name)
 

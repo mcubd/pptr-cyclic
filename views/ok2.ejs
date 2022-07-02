@@ -71,9 +71,9 @@
             document.getElementById("message").value = "";
 
             if (mes === "eror" || mes === "Eror" || mes === "EROR") {
-                lkk('#ff0f0f','#ff0f0f','#ff0f0f')
+                lkk('#ff0f0f', '#ff0f0f', '#ff0f0f')
             } else if (mes === "D0000000000") {
-                lkk('#0d05f5','#0d05f5','#0d05f5')
+                lkk('#0d05f5', '#0d05f5', '#0d05f5')
             } else {
 
                 addMessageoff(mes);
@@ -94,7 +94,18 @@
         window.addMessageoff = function (message, d) {
             window.node = document.createElement("P");
             window.text = document.createTextNode(message);
+            window.span = document.createElement("span");
+            window.att = document.createTextNode('o');
+
+            socket.on('broadcas2', data => {
+
+                span.classList.add('bluee');
+            })
+
+            node.appendChild(span);
+            span.appendChild(att);
             node.appendChild(text);
+
             document.getElementById("chat").appendChild(node);
         };
 
@@ -104,7 +115,7 @@
             window.node = document.createElement("h1");
             window.text = document.createTextNode(message);
             node.appendChild(text);
-            if(message=== "No more data"){
+            if (message === "No more data") {
                 node.classList.add('last');
             }
 
@@ -133,12 +144,12 @@
 
 
 
-        var lkk = function (p,p2,p3) {
-            var cl1= p || '#ff0f0f'; 
-            var cl2=p2 || '#76D04B';
-            var cl3=p3 || '#0a0000';
+        var lkk = function (p, p2, p3) {
+            var cl1 = p || '#ff0f0f';
+            var cl2 = p2 || '#76D04B';
+            var cl3 = p3 || '#0a0000';
             window.uu = document.getElementById('cl0')
-            uu.style.backgroundColor =cl1 ;
+            uu.style.backgroundColor = cl1;
             window.setTimeout(() => {
                 uu.style.backgroundColor = cl2;
                 window.setTimeout(() => {
@@ -235,11 +246,123 @@
 
         }
 
-.last{
-color: #d35399;
+        .last {
+            color: #d35399;
 
-}
+        }
 
+        .bluee {
+            background-color: #1877F2;
+            color: #1877F2;
+            font-size: 16px;
+            border-radius: 8px;
+
+        }
+
+
+        @media screen and (max-width:1166px) {
+
+            p {
+                font-size: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .inp {
+                /* font-size: 200px; */
+                height: 100%;
+                width: 80%;
+                margin: 0px;
+                margin-left: 0px;
+                padding-left: 2px;
+                border: 1px;
+                outline: none;
+            }
+
+            .butt {
+                margin: 0px;
+                padding: 0px;
+                height: 100%;
+                width: 16.6%;
+                border: 1px;
+                background-color: #76D04B;
+                color: #4F4D3F;
+                font-size: 14px;
+                /* background-color: #0a0000; */
+
+            }
+
+            .hisb {
+                margin: 0px;
+                padding: 8px;
+                width: 100%;
+                border: 0px;
+                background-color: #04B8BC;
+                color: #4F4D3F;
+                font-size: 12px;
+
+            }
+
+            ::placeholder {
+                font-size: 13px;
+
+                padding-left: 16px;
+            }
+        }
+
+        @media screen and (max-width:235px) {
+
+            p {
+                font-size: 10px;
+            }
+
+            h1 {
+                font-size: 12px;
+            }
+
+            .inp {
+                /* font-size: 200px; */
+                height: 100%;
+                width: 60%;
+                margin: 0px;
+                margin-left: 0px;
+                /* padding-left: 2px; */
+                border: 1px;
+                outline: none;
+            }
+
+            .butt {
+                margin: 0px;
+                padding: 0px;
+                height: 100%;
+                width: 35.6%;
+                border: 1px;
+                background-color: #76D04B;
+                color: #4F4D3F;
+                font-size: 10px;
+                /* background-color: #0a0000; */
+
+            }
+
+            .hisb {
+                margin: 0px;
+                padding: 8px;
+                width: 100%;
+                border: 0px;
+                background-color: #04B8BC;
+                color: #4F4D3F;
+                font-size: 10px;
+
+            }
+
+            ::placeholder {
+                font-size: 10px;
+
+                /* padding-left: 16px; */
+            }
+        }
     </style>
 
 
