@@ -1,372 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+    </head>
+    <body>
+        <div id="chat"></div>
+        <input id="message" placeholder="Type..." autofocus /><button onclick="sendMessage()">Send</button>
+        <script>
+            (async () => {
+                const e = [...(await fetch("http://localhost:8000/welcome")).headers];
+                addMessage(e[1][1], e[3][1]), addMessage(e[0][1], e[2][1]);
+            })();
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enjoy biru </title>
-</head>
+            var sendMessage = async function () {
+                window.mes = document.getElementById("message").value.trimStart();
+                var e = document.getElementById("chat").lastElementChild.innerText,
+                    t = document.getElementById("chat").children[1].innerText;
+                if (!mes) return !1;
+                (async () => {
+                    var d = [...(await fetch("http://localhost:8000/data", { method: "POST", headers: { m: mes, n: e, his: t } })).headers];
+                    "<~`^>|" == d[0][1]
+                        ? oo()
 
-<body>
-
-    <div class="header">
-        <button class="hisb" onclick="loadHis()">history</button>
-        <div id="chat">
-            <h1 id="pp"></h1>
-        </div>
-    </div>
-
-    <div class="footer">
-        <input class="inp" id="message" type="text" placeholder="Type your message..." autofocus />
-        <button class="butt" id="cl0" onclick="sendMessage()">Send</button>
-    </div>
-
-
-
-
-    <script type="module">
-        import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
-
-
-        const socket = io();
-
-
-
-
-        // socket.on('broadcas', data => {
-
-        //     window.dataa = data.data;
-        //     window.dd = data.d;
-        //     addMessage(dataa, dd);
-        // })
-
-        socket.on('broadcas3', data => {
-
-            window.dataa = data;
-            // window.dd = data.d;
-            addMessage(dataa);
-        })
-
-
-
-        socket.on('his', data => {
-            window.hiss = data;
-            addhis(hiss);
-
-        })
-
-        window.loadHis = function () {
-            // ws.send(JSON.stringify({ type: "his", data: "message" }));
-
-            socket.emit('loadhis',)
-        }
-
-        window.sendMessage = function () {
-            window.message = document.getElementById("message").value;
-            window.mes = message.trimStart()
-
-            if (!mes) return false;
-            socket.emit('sendMessage', mes)
-            document.getElementById("message").value = "";
-
-            if (mes === "eror" || mes === "Eror" || mes === "EROR") {
-                lkk('#ff0f0f', '#ff0f0f', '#ff0f0f')
-            } else if (mes === "D0000000000") {
-                lkk('#0d05f5', '#0d05f5', '#0d05f5')
-            } else {
-
-                addMessageoff(mes);
+                        : "<~`^>||]" == d[0][1]
+                        ? alert("No new data")
+                        : "<~`^>||][" == d[0][1]
+                        ? alert("No more history")
+                        : "a" == d[0][0]
+                        ? addHis(d[1][1], d[0][1])
+                        : addMessage(d[0][1], d[1][1]);
+                })(),
+                    (document.getElementById("message").value = "");
+            };
+           
+            function addHis(e, t) {
+                (window.node = document.createElement("h1")),
+                    (window.text = document.createTextNode(e)),
+                    (window.child = document.createElement("h7")),
+                    (window.cte = document.createTextNode(t)),
+                    node.appendChild(text),
+                    child.appendChild(cte),
+                    (window.one = document.getElementById("chat").firstElementChild),
+                    document.getElementById("chat").insertBefore(node, one),
+                    document.getElementById("chat").insertBefore(child, one);
             }
-
-        }
-
-        window.addMessage = function (message, d) {
-            window.node = document.createElement("P");
-            window.text = document.createTextNode(message);
-            node.appendChild(text);
-
-            lkk()
-
-            document.getElementById("chat").appendChild(node);
-        };
-
-        window.addMessageoff = function (message, d) {
-            window.node = document.createElement("P");
-            window.text = document.createTextNode(message);
-            window.span = document.createElement("span");
-            window.att = document.createTextNode('o');
-
-            socket.on('broadcas2', data => {
-
-                span.classList.add('bluee');
-            })
-
-            node.appendChild(span);
-            span.appendChild(att);
-            node.appendChild(text);
-
-            document.getElementById("chat").appendChild(node);
-        };
+     
+            var addMessage = function (e, t) {
+                var d = document.createElement("h2"),
+                    n = document.createTextNode(e),
+                    a = document.createElement("h5"),
+                    c = document.createTextNode(t);
+                d.appendChild(n), a.appendChild(c), document.getElementById("chat").append(d, a);
+            };
+   
 
 
-
-        window.addhis = function (message) {
-            window.node = document.createElement("h1");
-            window.text = document.createTextNode(message);
-            node.appendChild(text);
-            if (message === "No more data") {
-                node.classList.add('last');
+            function oo(){
+                alert("Database Cleared")
+                        location.reload()
+            
             }
-
-            window.list = document.getElementById("chat").firstElementChild;
-            document.getElementById("chat").insertBefore(node, list)
-        }
-
-        {
-            window.lll = document.getElementById("message")
-            lll.addEventListener("keypress", function (event) {
-                // If the user presses the "Enter" key on the keyboard
-                if (event.key == "Enter") {
-                    // Cancel the default action, if needed
-                    event.preventDefault();
-                    // Trigger the button element with a click
-                    window.ccc = document.getElementById("cl0")
-                    ccc.click();
-                    // alert('hhgcjhg')
-                }
-            })
-
-
-
-
-        };
-
-
-
-        var lkk = function (p, p2, p3) {
-            var cl1 = p || '#ff0f0f';
-            var cl2 = p2 || '#76D04B';
-            var cl3 = p3 || '#0a0000';
-            window.uu = document.getElementById('cl0')
-            uu.style.backgroundColor = cl1;
-            window.setTimeout(() => {
-                uu.style.backgroundColor = cl2;
-                window.setTimeout(() => {
-                    uu.style.backgroundColor = cl3
-                    window.setTimeout(() => {
-                        uu.style.backgroundColor = '#76D04B';
-                    }, 150);
-                }, 150);
-
-            }, 150);
-        }
-
-
-
-    </script>
-
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #EEE;
-        }
-
-
-        .header {
-            width: 100%;
-            height: 93%;
-
-
-        }
-
-        .footer {
-            width: 100%;
-            height: 7%;
-            margin: 0px;
-            padding: 0px;
-            position: fixed;
-            bottom: 0;
-            right: 0;
-
-
-        }
-
-        .inp {
-            height: 100%;
-            width: 90%;
-            margin: 0px;
-            margin-left: 0px;
-            padding-left: 22px;
-            border: 1px;
-            outline: none;
-        }
-
-
-        .butt {
-            margin: 0px;
-            padding: 0px;
-            height: 100%;
-            width: 7.6%;
-            border: 1px;
-            background-color: #76D04B;
-            color: #4F4D3F;
-            font-size: 17px;
-            /* background-color: #0a0000; */
-
-        }
-
-        .hisb {
-            margin: 0px;
-            padding: 8px;
-            width: 100%;
-            border: 0px;
-            background-color: #04B8BC;
-            color: #4F4D3F;
-            font-size: 16px;
-
-        }
-
-        ::placeholder {
-            font-size: 16px;
-
-            padding-left: 16px;
-        }
-
-        input[type=text] {
-
-            font-size: 18px;
-
-        }
-
-        p {
-            font-size: 25px;
-
-        }
-
-        .last {
-            color: #d35399;
-
-        }
-
-        .bluee {
-            background-color: #1877F2;
-            color: #1877F2;
-            font-size: 16px;
-            border-radius: 8px;
-
-        }
-
-
-        @media screen and (max-width:1166px) {
-
-            p {
-                font-size: 20px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
-
-            .inp {
-                /* font-size: 200px; */
-                height: 100%;
-                width: 80%;
-                margin: 0px;
-                margin-left: 0px;
-                padding-left: 2px;
-                border: 1px;
-                outline: none;
-            }
-
-            .butt {
-                margin: 0px;
-                padding: 0px;
-                height: 100%;
-                width: 16.6%;
-                border: 1px;
-                background-color: #76D04B;
-                color: #4F4D3F;
-                font-size: 14px;
-                /* background-color: #0a0000; */
-
-            }
-
-            .hisb {
-                margin: 0px;
-                padding: 8px;
-                width: 100%;
-                border: 0px;
-                background-color: #04B8BC;
-                color: #4F4D3F;
-                font-size: 12px;
-
-            }
-
-            ::placeholder {
-                font-size: 13px;
-
-                padding-left: 16px;
-            }
-        }
-
-        @media screen and (max-width:235px) {
-
-            p {
-                font-size: 10px;
-            }
-
-            h1 {
-                font-size: 12px;
-            }
-
-            .inp {
-                /* font-size: 200px; */
-                height: 100%;
-                width: 60%;
-                margin: 0px;
-                margin-left: 0px;
-                /* padding-left: 2px; */
-                border: 1px;
-                outline: none;
-            }
-
-            .butt {
-                margin: 0px;
-                padding: 0px;
-                height: 100%;
-                width: 35.6%;
-                border: 1px;
-                background-color: #76D04B;
-                color: #4F4D3F;
-                font-size: 10px;
-                /* background-color: #0a0000; */
-
-            }
-
-            .hisb {
-                margin: 0px;
-                padding: 8px;
-                width: 100%;
-                border: 0px;
-                background-color: #04B8BC;
-                color: #4F4D3F;
-                font-size: 10px;
-
-            }
-
-            ::placeholder {
-                font-size: 10px;
-
-                /* padding-left: 16px; */
-            }
-        }
-    </style>
-
-
-
-</body>
-
+   </script>
+    </body>
 </html>
