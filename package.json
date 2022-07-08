@@ -6,9 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node 1.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel ok1.ejs",
-    "build": "parcel build ok1.ejs"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -22,12 +20,5 @@
     "moment-timezone": "^0.5.34",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1"
-  },
-  "optionalDependencies": {
-    "bufferutil": "^4.0.6",
-    "utf-8-validate": "^5.0.9"
-  },
-  "devDependencies": {
-    "parcel-bundler": "^2.0.0"
   }
 }
