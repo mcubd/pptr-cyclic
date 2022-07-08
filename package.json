@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node 1.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel ok1.ejs",
+    "build": "parcel build ok1.ejs"
   },
   "keywords": [],
   "author": "",
@@ -24,5 +26,8 @@
   "optionalDependencies": {
     "bufferutil": "^4.0.6",
     "utf-8-validate": "^5.0.9"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^2.0.0"
   }
 }

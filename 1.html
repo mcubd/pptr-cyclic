@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      body { background-color: rgb(235, 235, 235); margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #ddd6d6; }
+      .his{padding: 8px;width: 100%;border: 0px;background-color: #04B8BC;color: #4F4D3F;font-size: 16px; }
+    </style>
+  </head>
+  <body>
+    <button class="his"  onclick="loadHis()">History</button>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" autofocus/><button id="btn" >Send</button>
+    </form>
+
+<script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script> 
+
+
+
+
+<script>
+var socket = io();
+var messages = document.getElementById('messages');
+  var form = document.getElementById('form');
+
+
+  form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var iv=document.getElementById('input')
+        var v = iv.value.replace(/^\s+/,'').replace(/\s+$/,'')
+        if (v!=='') {
+          iv.value= '';
+          if(v=='D0000000000'){lkk('#0d05f5', '#0d05f5', '#0d05f5')}
+          socket.emit('sent',v);
+        }
+      });
+
+socket.emit('joined')
+socket.on('wel',(d,t) => {
+  addMessage(d,t)
+})
+
+
+var addMessage = function (msg, d, con) {
+    var node = document.createElement('li')
+    node.textContent = msg;
+        messages.appendChild(node);
+      // if (con !== 'noo') { lkk() }
+    addtime(d)
+};
+
+
+var  addtime = function (t) {
+  var node = document.createElement('li')
+  node.textContent = t;
+  messages.appendChild(node);
+};
+
+
+socket.on('sttusBroadcast',() => {
+  var aj = document.getElementById("messages").lastElementChild
+    if (aj == null || aj == undefined) { 
+        socket.emit('deji0')
+    }
+    else {
+        var deiu = aj.innerText
+        socket.emit('deji', deiu)
+    }
+
+})
+
+
+socket.on('statusSender', () => {
+    var ajj = document.getElementById("messages").lastElementChild
+    if (ajj == null || ajj == undefined) {
+        socket.emit('deji0s')
+     }
+    else {
+        var deiuo = ajj.innerText
+        socket.emit('dejiSender', deiuo)
+    }
+
+})
+
+
+socket.on('newMsg', (a, e, con) => {
+    addMessage(a, e, con)
+})
+
+
+function loadHis(){
+     var dae = document.getElementById("messages").children[1].innerText
+    socket.emit('loadhis', dae)
+
+}
+
+socket.on('his', (data, ttt) => {
+    addhis(data, ttt);
+})
+
+
+var addhis = function (msg, o) {
+    {
+      var onn=document.getElementById("messages")
+
+      var node = document.createElement('li')
+      node.textContent = msg;
+      var no = document.createElement('li')
+      
+        // messages.appendChild(no);
+    }
+
+    if (msg !== "No more data") { no.textContent = o; }
+    // if (message === "No more data") { node.classList.add('last') }
+
+    var one = onn.firstElementChild;
+    onn.insertBefore(node, one)
+    onn.insertBefore(no, one)
+}
+
+
+
+// ---------------------------------00000000000000000-------------------------------
+
+var lkk = function (p, p2, p3) {
+    var cl1 = p || '#ff0f0f';
+    var cl2 = p2 || '#76D04B';
+    var cl3 = p3 || '#0a0000';
+    window.uu = document.getElementById('btn')
+    uu.style.backgroundColor = cl1;
+    window.setTimeout(() => {
+        uu.style.backgroundColor = cl2;
+        window.setTimeout(() => {
+            uu.style.backgroundColor = cl3
+            window.setTimeout(() => {
+                uu.style.backgroundColor = '#76D04B';
+            }, 150);
+        }, 150);
+
+    }, 150);
+}
+
+
+      socket.on('reload', () => {
+        location.reload();
+    })
+</script>
+  </body>
+</html>

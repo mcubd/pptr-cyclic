@@ -19,161 +19,12 @@
         <button class="butt" id="cl0" onclick="sendMessage()">Send</button>
     </div>
 
-
-    <script type="module">
-        import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
-        const socket = io();
-
-        socket.emit('joined')
-
-        socket.on('welcome', (d1, t1) => {
-            addMessage(d1, t1, 'noo')
-        })
-
-        socket.on('sttusBroadcast', () => {
-            var aj = document.getElementById("chat").lastElementChild
-            if (aj == null || aj == undefined) { 
-                socket.emit('deji0')
-            }
-            else {
-                var deiu = aj.innerText
-                socket.emit('deji', deiu)
-            }
-
-        })
-
-        socket.on('statusSender', () => {
-            var ajj = document.getElementById("chat").lastElementChild
-            if (ajj == null || ajj == undefined) {
-                socket.emit('deji0s')
-             }
-            else {
-                var deiuo = ajj.innerText
-                socket.emit('dejiSender', deiuo)
-            }
-
-        })
-
-        socket.on('newMsg', (a, e, con) => {
-            addMessage(a, e, con)
-        })
-
-        window.sendMessage = function () {
-            window.mes = document.getElementById("message").value.trimStart()
-            var lec = document.getElementById("chat").lastElementChild
-            var e
-            if (lec !== null && lec !== undefined) { e = lec.innerText; }
-
-            if (!mes) return false;
-            socket.emit('sendMessage', mes, e)
-
-            {
-                document.getElementById("message").value = "";
-                if (mes === "eror" || mes === "Eror" || mes === "EROR") { lkk('#ff0f0f', '#ff0f0f', '#ff0f0f') }
-                else if (mes === "D0000000000") { lkk('#0d05f5', '#0d05f5', '#0d05f5') }
-                else { }
-            }
-
-        }
-
-        window.addMessage = function (message, d, con) {
-            window.node = document.createElement("P");
-            window.text = document.createTextNode(message);
-            node.appendChild(text);
-            if (con !== 'noo') { lkk() }
-            document.getElementById("chat").appendChild(node);
-            addtime(d)
-        };
-
-        window.addtime = function (tt) {
-            window.node = document.createElement("h6");
-            window.text = document.createTextNode(tt);
-            node.appendChild(text);
-
-            document.getElementById("chat").appendChild(node);
-        };
-
-        socket.on('his', (data, ttt) => {
-            addhis(data, ttt);
-        })
-
-        window.loadHis = function () {
-            window.dae = document.getElementById("chat").children[1].innerText
-            socket.emit('loadhis', dae)
-        }
-
-        window.addhis = function (message, o) {
-            {
-                window.node = document.createElement("h1");
-                window.text = document.createTextNode(message);
-                node.appendChild(text);
-                window.child = document.createElement('h6');
-                window.te = document.createTextNode(o);
-            }
-
-            if (message !== "No more data") { child.appendChild(te) }
-            if (message === "No more data") { node.classList.add('last') }
-
-            window.one = document.getElementById("chat").firstElementChild;
-            document.getElementById("chat").insertBefore(node, one)
-            document.getElementById("chat").insertBefore(child, one)
-        }
-
-        {
-            window.lll = document.getElementById("message")
-            lll.addEventListener("keypress", function (event) {
-                // If the user presses the "Enter" key on the keyboard
-                if (event.key == "Enter") {
-                    // Cancel the default action, if needed
-                    event.preventDefault();
-                    // Trigger the button element with a click
-                    window.ccc = document.getElementById("cl0")
-                    ccc.click();
-                }
-            })
-
-
-            socket.on('reload', () => {
-                location.reload();
-            })
-
-
-        };
-
-
-
-        var lkk = function (p, p2, p3) {
-            var cl1 = p || '#ff0f0f';
-            var cl2 = p2 || '#76D04B';
-            var cl3 = p3 || '#0a0000';
-            window.uu = document.getElementById('cl0')
-            uu.style.backgroundColor = cl1;
-            window.setTimeout(() => {
-                uu.style.backgroundColor = cl2;
-                window.setTimeout(() => {
-                    uu.style.backgroundColor = cl3
-                    window.setTimeout(() => {
-                        uu.style.backgroundColor = '#76D04B';
-                    }, 150);
-                }, 150);
-
-            }, 150);
-        }
-
-
-
-    </script>
-
-
-    <style>
-        body {
+<style>
+      body {
             margin: 0;
             padding: 0;
             background-color: #EEE;
-        }
-
-
-        .header {
+        }.header {
             width: 100%;
             height: 93%;
 
@@ -371,7 +222,153 @@
         }
     </style>
 
+<script>
+// // alert(6)
+// import { io } from "socket.io-client";
+// const socket = io();
+// socket.emit('joined')
 
+socket.on('welcome', (d1, t1) => {
+    addMessage(d1, t1, 'noo')
+})
+
+socket.on('sttusBroadcast', () => {
+    var aj = document.getElementById("chat").lastElementChild
+    if (aj == null || aj == undefined) { 
+        socket.emit('deji0')
+    }
+    else {
+        var deiu = aj.innerText
+        socket.emit('deji', deiu)
+    }
+
+})
+
+socket.on('statusSender', () => {
+    var ajj = document.getElementById("chat").lastElementChild
+    if (ajj == null || ajj == undefined) {
+        socket.emit('deji0s')
+     }
+    else {
+        var deiuo = ajj.innerText
+        socket.emit('dejiSender', deiuo)
+    }
+
+})
+
+socket.on('newMsg', (a, e, con) => {
+    addMessage(a, e, con)
+})
+
+window.sendMessage = function () {
+    window.mes = document.getElementById("message").value.trimStart()
+    var lec = document.getElementById("chat").lastElementChild
+    var e
+    if (lec !== null && lec !== undefined) { e = lec.innerText; }
+
+    if (!mes) return false;
+    socket.emit('sendMessage', mes, e)
+
+    {
+        document.getElementById("message").value = "";
+        if (mes === "eror" || mes === "Eror" || mes === "EROR") { lkk('#ff0f0f', '#ff0f0f', '#ff0f0f') }
+        else if (mes === "D0000000000") { lkk('#0d05f5', '#0d05f5', '#0d05f5') }
+        else { }
+    }
+
+}
+
+window.addMessage = function (message, d, con) {
+    window.node = document.createElement("P");
+    window.text = document.createTextNode(message);
+    node.appendChild(text);
+    if (con !== 'noo') { lkk() }
+    document.getElementById("chat").appendChild(node);
+    addtime(d)
+};
+
+window.addtime = function (tt) {
+    window.node = document.createElement("h6");
+    window.text = document.createTextNode(tt);
+    node.appendChild(text);
+
+    document.getElementById("chat").appendChild(node);
+};
+
+socket.on('his', (data, ttt) => {
+    addhis(data, ttt);
+})
+
+window.loadHis = function () {
+    window.dae = document.getElementById("chat").children[1].innerText
+    socket.emit('loadhis', dae)
+}
+
+window.addhis = function (message, o) {
+    {
+        window.node = document.createElement("h1");
+        window.text = document.createTextNode(message);
+        node.appendChild(text);
+        window.child = document.createElement('h6');
+        window.te = document.createTextNode(o);
+    }
+
+    if (message !== "No more data") { child.appendChild(te) }
+    if (message === "No more data") { node.classList.add('last') }
+
+    window.one = document.getElementById("chat").firstElementChild;
+    document.getElementById("chat").insertBefore(node, one)
+    document.getElementById("chat").insertBefore(child, one)
+}
+
+{
+    window.lll = document.getElementById("message")
+    lll.addEventListener("keypress", function (event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key == "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            window.ccc = document.getElementById("cl0")
+            ccc.click();
+        }
+    })
+
+
+    socket.on('reload', () => {
+        location.reload();
+    })
+
+
+};
+
+
+
+var lkk = function (p, p2, p3) {
+    var cl1 = p || '#ff0f0f';
+    var cl2 = p2 || '#76D04B';
+    var cl3 = p3 || '#0a0000';
+    window.uu = document.getElementById('cl0')
+    uu.style.backgroundColor = cl1;
+    window.setTimeout(() => {
+        uu.style.backgroundColor = cl2;
+        window.setTimeout(() => {
+            uu.style.backgroundColor = cl3
+            window.setTimeout(() => {
+                uu.style.backgroundColor = '#76D04B';
+            }, 150);
+        }, 150);
+
+    }, 150);
+}
+
+
+
+
+
+
+
+</script>
 
 </body>
 

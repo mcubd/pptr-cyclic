@@ -6,8 +6,11 @@ import { fileURLToPath } from 'url';
 import * as fs from 'fs';
 import bodyParser from 'body-parser'
 import moment from 'moment-timezone';
+import { io } from "socket.io-client";
 
 
+var oi =io()
+var oii2={ ...oi}
 const app = express();
 const httpServer = createServer(app);
 const ioo = new Server(httpServer, { /* options */ });
@@ -16,124 +19,223 @@ const ioo = new Server(httpServer, { /* options */ });
 
 
 ioo.on("connection", (socket) => {
-  console.log('at least 1 client connected ')
 
-  function posiSoil() {
-    socket.broadcast.emit('sttusBroadcast')
-    socket.emit('statusSender')
+
+//   socket.on('sendMessage', (name, ti) => {
+//     // const d = new Date().toLocaleString('en-US', { timeZone: 'Asia/dhaka', timeStyle: 'medium', dateStyle: 'short', hourCycle: 'h24' })
+// var d =moment().tz('Asia/dhaka').format('D/M/YY,  h:m:s a')
+
+
+
+//     if (name === "D0000000000") {
+//       var ou = fs.readFile('his.json', function (err, dat) {
+//         var json = JSON.parse(dat);
+//         json.data = [];
+//         json.date = [];
+//         json.num = ["0-"];
+//         fs.writeFileSync("his.json", JSON.stringify(json))
+//         socket.emit('reload')
+//         socket.broadcast.emit('reload')
+//       })
+//     } else if (name === "eror" || name === "Eror" || name === "ERor" || name === "EROr" || name === "EROR") {
+//     } else {
+//       fs.readFile('his.json', function (err, dat) {
+//         var json = JSON.parse(dat);
+//         json.data.push(name);
+//         json.date.push(d);
+
+//         var l = json.num.length
+//         var nnp = l + '-'
+//         json.num.push(nnp);
+
+//         fs.writeFileSync("his.json", JSON.stringify(json))
+//         posiSoil()
+//       })
+//     }
+//   })
+
+
+  // socket.on('deji', (date) => {
+  //   let ou = fs.readFileSync('his.json', 'utf8');
+  //   let json = JSON.parse(ou);
+  //   let e = json.date.indexOf(date)
+  //   let dd = json.date[e + 1];
+  //   let ddd = json.data[e + 1];
+  //   let doo = json.date[e + 1];
+
+  //   if (dd !== undefined) {
+  //     socket.emit('newMsg', ddd, doo,)
+  //   }
+
+  // })
+
+
+  // socket.on('dejiSender', (date) => {
+  //   let ou = fs.readFileSync('his.json', 'utf8');
+  //   let json = JSON.parse(ou);
+  //   let e = json.date.indexOf(date)
+  //   let dd = json.date[e + 1];
+  //   let ddd = json.data[e + 1];
+  //   let doo = json.date[e + 1];
+
+  //   if (dd !== undefined) {
+  //     socket.emit('newMsg', ddd, doo, 'noo')
+  //   }
+
+  // })
+
+  // socket.on('deji0', (date) => {
+  //   let ou = fs.readFileSync('his.json', 'utf8');
+  //   let json = JSON.parse(ou);
+  //   let d = json.data[0];
+  //   let de = json.date[0];
+    
+  //     socket.emit('newMsg', d, de)
+  // })
+
+  // socket.on('deji0s', (date) => {
+  //   let ou = fs.readFileSync('his.json', 'utf8');
+  //   let json = JSON.parse(ou);
+  //   let d = json.data[0];
+  //   let de = json.date[0];
+    
+  //     socket.emit('newMsg', d, de, 'noo')
+    
+
+  // })
+
+
+
+
+  // socket.on("loadhis", (ee) => {
+  //   var ou = fs.readFileSync('his.json', 'utf8');
+  //   var json = JSON.parse(ou);
+  //   var e = json.date.lastIndexOf(ee)
+
+  //   var dd = json.data[e - 1];
+  //   var ttt = json.date[e - 1]
+  //   console.log(e)
+  //   // var ttt = json.date[json.date.length - inc];
+
+
+  //   if (e <= 0) { if (e == 0) { socket.emit("his", "No more data") } if (e < 0) { } }
+  //   else { socket.emit("his", dd, ttt) }
+  // });
+
+
+// ---------------------------------000000000-----------------------------------
+
+function posiSoil() {
+  socket.broadcast.emit('sttusBroadcast')
+  socket.emit('statusSender')
+}
+
+socket.on('joined', () => {
+  var ou = fs.readFileSync('his.json', 'utf8');
+  var json = JSON.parse(ou);
+
+  var d1 = json.data[json.data.length - 1];
+  var t1 = json.date[json.date.length - 1];
+console.log(d1)
+  if (d1 === undefined) { } else {socket.emit('wel', d1, t1)}
+
+})
+
+
+socket.on('sent',(mess) => {
+var d =moment().tz('Asia/dhaka').format('D/M/YY,h:m:s a')
+
+  if (mess === "D0000000000") {
+    var ou = fs.readFile('his.json', function (err, dat) {
+      var json = JSON.parse(dat);
+      json.data = [];
+      json.date = [];
+      json.num = ["0-"];
+      fs.writeFileSync("his.json", JSON.stringify(json))
+      socket.emit('reload')
+      socket.broadcast.emit('reload')
+    })
+  } else if (mess === "eror" || mess === "Eror" || mess === "ERor" || mess === "EROr" || mess === "EROR") {
+  } else {
+    fs.readFile('his.json', function (err, dat) {
+      var json = JSON.parse(dat);
+      json.data.push(mess);
+      json.date.push(d);
+
+      var l = json.num.length
+      var nnp = l + '-'
+      json.num.push(nnp);
+
+      fs.writeFileSync("his.json", JSON.stringify(json))
+      posiSoil()
+    })
+  }
+})
+
+
+socket.on('deji', (date) => {
+  let ou = fs.readFileSync('his.json', 'utf8');
+  let json = JSON.parse(ou);
+  let e = json.date.indexOf(date)
+  let dd = json.date[e + 1];
+  let ddd = json.data[e + 1];
+  let doo = json.date[e + 1];
+
+  if (dd !== undefined) {
+    socket.emit('newMsg', ddd, doo,)
   }
 
-  socket.on('joined', () => {
-    var ou = fs.readFileSync('his.json', 'utf8');
-    var json = JSON.parse(ou);
+})
 
-    var d1 = json.data[json.data.length - 1];
-    var t1 = json.date[json.date.length - 1];
+socket.on('dejiSender', (date) => {
+  let ou = fs.readFileSync('his.json', 'utf8');
+  let json = JSON.parse(ou);
+  let e = json.date.indexOf(date)
+  let dd = json.date[e + 1];
+  let ddd = json.data[e + 1];
+  let doo = json.date[e + 1];
 
-    if (d1 === undefined) { } else {socket.emit('welcome', d1, t1)}
+  if (dd !== undefined) {
+    socket.emit('newMsg', ddd, doo, 'noo')
+  }
 
-  })
-
-  socket.on('sendMessage', (name, ti) => {
-    // const d = new Date().toLocaleString('en-US', { timeZone: 'Asia/dhaka', timeStyle: 'medium', dateStyle: 'short', hourCycle: 'h24' })
-var d =moment().tz('Asia/dhaka').format('D/M/YY,  h:m:s a')
-
-
-
-    if (name === "D0000000000") {
-      var ou = fs.readFile('his.json', function (err, dat) {
-        var json = JSON.parse(dat);
-        json.data = [];
-        json.date = [];
-        json.num = ["0-"];
-        fs.writeFileSync("his.json", JSON.stringify(json))
-        socket.emit('reload')
-        socket.broadcast.emit('reload')
-      })
-    } else if (name === "eror" || name === "Eror" || name === "ERor" || name === "EROr" || name === "EROR") {
-    } else {
-      fs.readFile('his.json', function (err, dat) {
-        var json = JSON.parse(dat);
-        json.data.push(name);
-        json.date.push(d);
-
-        var l = json.num.length
-        var nnp = l + '-'
-        json.num.push(nnp);
-
-        fs.writeFileSync("his.json", JSON.stringify(json))
-        posiSoil()
-      })
-    }
-  })
+})
 
 
-  socket.on('deji', (date) => {
-    let ou = fs.readFileSync('his.json', 'utf8');
-    let json = JSON.parse(ou);
-    let e = json.date.indexOf(date)
-    let dd = json.date[e + 1];
-    let ddd = json.data[e + 1];
-    let doo = json.date[e + 1];
-
-    if (dd !== undefined) {
-      socket.emit('newMsg', ddd, doo,)
-    }
-
-  })
+socket.on('deji0', () => {
+  let ou = fs.readFileSync('his.json', 'utf8');
+  let json = JSON.parse(ou);
+  let d = json.data[0];
+  let de = json.date[0];
+  
+    socket.emit('newMsg', d, de)
+})
 
 
-  socket.on('dejiSender', (date) => {
-    let ou = fs.readFileSync('his.json', 'utf8');
-    let json = JSON.parse(ou);
-    let e = json.date.indexOf(date)
-    let dd = json.date[e + 1];
-    let ddd = json.data[e + 1];
-    let doo = json.date[e + 1];
+socket.on('deji0s', () => {
+  let ou = fs.readFileSync('his.json', 'utf8');
+  let json = JSON.parse(ou);
+  let d = json.data[0];
+  let de = json.date[0];
+  
+    socket.emit('newMsg', d, de, 'noo')
+  
 
-    if (dd !== undefined) {
-      socket.emit('newMsg', ddd, doo, 'noo')
-    }
-
-  })
-
-  socket.on('deji0', (date) => {
-    let ou = fs.readFileSync('his.json', 'utf8');
-    let json = JSON.parse(ou);
-    let d = json.data[0];
-    let de = json.date[0];
-    
-      socket.emit('newMsg', d, de)
-  })
-
-  socket.on('deji0s', (date) => {
-    let ou = fs.readFileSync('his.json', 'utf8');
-    let json = JSON.parse(ou);
-    let d = json.data[0];
-    let de = json.date[0];
-    
-      socket.emit('newMsg', d, de, 'noo')
-    
-
-  })
+})
 
 
+socket.on("loadhis", (ee) => {
+  var ou = fs.readFileSync('his.json', 'utf8');
+  var json = JSON.parse(ou);
+  var e = json.date.lastIndexOf(ee)
 
+  var dd = json.data[e - 1];
+  var ttt = json.date[e - 1]
 
-  socket.on("loadhis", (ee) => {
-    var ou = fs.readFileSync('his.json', 'utf8');
-    var json = JSON.parse(ou);
-    var e = json.date.lastIndexOf(ee)
+  if (e <= 0) { if (e == 0) { socket.emit("his", "No more data") } if (e < 0) { } }
+  else { socket.emit("his", dd, ttt) }
+});
 
-    var dd = json.data[e - 1];
-    var ttt = json.date[e - 1]
-    console.log(e)
-    // var ttt = json.date[json.date.length - inc];
-
-
-    if (e <= 0) { if (e == 0) { socket.emit("his", "No more data") } if (e < 0) { } }
-    else { socket.emit("his", dd, ttt) }
-  });
 
 
 });
@@ -156,11 +258,17 @@ var d =moment().tz('Asia/dhaka').format('D/M/YY,  h:m:s a')
   app.set('etag', false)
 
   app.get('/', (req, res) => {
-    res.render('ok1.ejs')
+    res.sendFile(__dirname + '/1.html') 
+    // res.render('ok1.ejs')
   })
   app.get('/lite', (req, res) => {
     res.render('ok2.ejs')
   })
+
+app.get('/ok',(req,res) => {
+  console.log(io)
+  res.send('io')
+})
 
   // ---------------------------------------------------
 
