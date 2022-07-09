@@ -156,6 +156,9 @@ var d =moment().tz('Asia/dhaka').format('D/M/YY,h:m:s a')
       socket.broadcast.emit('reload')
     })
   } else if (mess === "eror" || mess === "Eror" || mess === "ERor" || mess === "EROr" || mess === "EROR") {
+    socket.broadcast.emit('not')
+
+
   } else {
     fs.readFile('his.json', function (err, dat) {
       var json = JSON.parse(dat);
