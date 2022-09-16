@@ -23,8 +23,11 @@ const httpServer = createServer(app);
 const ioo = new Server(httpServer, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"]
-  } 
+    methods: ["GET", "POST"],
+    transports: ['websocket', 'polling'],
+    credentials: true
+},
+allowEIO3: true
 });
 
 
