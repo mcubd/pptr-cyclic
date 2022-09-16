@@ -10,6 +10,8 @@ import { io } from "socket.io-client";
 import cors from 'cors';
 
 
+var __dirname = dirname(fileURLToPath(import.meta.url));
+
 
 var oi =io()
 var oii2={ ...oi}
@@ -257,7 +259,6 @@ socket.on("loadhis", (ee) => {
 {
 
   httpServer.listen(process.env.PORT || 8000);
-  const __dirname = dirname(fileURLToPath(import.meta.url));
 
   app.use('/', express.static(__dirname + '/views'));
   app.use(bodyParser.json())
