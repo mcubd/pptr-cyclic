@@ -13,7 +13,12 @@ var oi =io()
 var oii2={ ...oi}
 const app = express();
 const httpServer = createServer(app);
-const ioo = new Server(httpServer, { /* options */ });
+const ioo = new Server(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  } 
+});
 
 
 
