@@ -7,6 +7,8 @@ import * as fs from 'fs';
 import bodyParser from 'body-parser'
 import moment from 'moment-timezone';
 import { io } from "socket.io-client";
+import cors from 'cors';
+
 
 
 var oi =io()
@@ -259,6 +261,8 @@ socket.on("loadhis", (ee) => {
 
   app.use('/', express.static(__dirname + '/views'));
   app.use(bodyParser.json())
+  app.use(cors())
+
 
 
   app.set('views', __dirname + '/views');
