@@ -6,15 +6,15 @@ import { fileURLToPath } from 'url';
 import * as fs from 'fs';
 import bodyParser from 'body-parser'
 import moment from 'moment-timezone';
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import cors from 'cors';
 
 
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
 
-var oi =io()
-var oii2={ ...oi}
+// var oi =io()
+// var oii2={ ...oi}
 const app = express();
 const httpServer = createServer(app);
 const ioo = new Server(httpServer, {
